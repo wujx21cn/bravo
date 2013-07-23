@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+.qq-guest {
+    background-image: url(../images/qq/guest.png) !important;
+} 
+.qq-host {
+    background-image: url(../images/qq/host.png) !important;
+} 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bravoRender>
+	<jsonRender name="jasonTree" class="com.cutty.bravo.core.ui.dataRender.JasonCheckedTreeDataRenderComponent"> 
+		<matchParameter name="jsonTreeData" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jasonComboBox" class="com.cutty.bravo.core.ui.dataRender.JasonComboBoxDataRenderComponent"> 
+		<matchParameter name="jsonComboBoxData" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jasonGridPanel" class="com.cutty.bravo.core.ui.dataRender.JasonGridPanelDataRenderComponent"> 
+		<matchParameter name="jsonGridData" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jasonFormData" class="com.cutty.bravo.core.ui.dataRender.JasonFormDataRenderComponent"> 
+		<matchAttribute name="jasonFormSubmit" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jasonBatchRemove" class="com.cutty.bravo.core.ui.dataRender.JasonBatchRemoveRenderComponent"> 
+		<matchAttribute name="jasonBatchRemove" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jasonBatchSave" class="com.cutty.bravo.core.ui.dataRender.JasonBatchSaveRenderComponent"> 
+		<matchAttribute name="jasonBatchSave" value="Y"/>
+	</jsonRender>		
+	<jsonRender name="jsonCheckedTree" class="com.cutty.bravo.core.ui.dataRender.JasonCheckedTreeDataRenderComponent"> 
+		<matchParameter name="jsonCheckedTreeData" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="ajaxHandleResponse" class="com.cutty.bravo.core.ui.dataRender.AjaxHandleResponseRenderComponent"> 
+		<matchAttribute name="ajaxHandleResponse" value="Y"/>
+	</jsonRender>	
+	<jsonRender name="jsonWorkFlowButtonData" class="com.cutty.bravo.core.ui.dataRender.JsonWorkFlowButtonDataRenderComponent"> 
+		<matchAttribute name="jsonWorkFlowButtonData" value="Y"/>
+	</jsonRender>
+	<jsonRender name="exprtExcel" class="com.cutty.bravo.core.ui.dataRender.ExprtExcelRenderComponent"> 
+		<matchParameter name="exprt_excel" value="Y"/>
+	</jsonRender>		
+		<jsonRender name="exprtPdf" class="com.cutty.bravo.core.ui.dataRender.ExprtPdfRenderComponent"> 
+		<matchParameter name="exprt_pdf" value="Y"/>
+	</jsonRender>	
+			<jsonRender name="exprtWord" class="com.cutty.bravo.core.ui.dataRender.ExprtWordRenderComponent"> 
+		<matchParameter name="exprt_word" value="Y"/>
+	</jsonRender>	
+</bravoRender>

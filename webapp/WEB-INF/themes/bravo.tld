@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+version="2.0">
+
+<description>bravo UI tag</description>
+<tlib-version>1.0</tlib-version>
+<jsp-version>2.0</jsp-version>
+
+   <short-name>bravo</short-name>
+
+   <description><![CDATA[bravo UI tag library for this application]]></description>
+
+
+  <tag>
+    <name>Page</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.Page</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>  
+  </tag>
+
+  <tag>
+    <name>Viewport</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.Viewport</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Panel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.Panel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>TreePanel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.tree.TreePanel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>TabPanel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.TabPanel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Portal</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.portal.Portal</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>PortalColumn</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.portal.PortalColumn</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Portlet</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.portal.Portlet</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Toolbar</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.Toolbar</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Menu</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.menu.Menu</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Button</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.button.Button</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>FormPanel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.FormPanel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Field</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.Field</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>TextField</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.TextField</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+  <tag>
+    <name>TextArea</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.TextArea</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+  
+  <tag>
+    <name>FieldSet</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.FieldSet</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Checkbox</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.Checkbox</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Radio</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.Radio</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Hidden</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.Hidden</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>CheckboxGroup</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.CheckboxGroup</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>RadioGroup</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.RadioGroup</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>NumberField</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.NumberField</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>DateField</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.DateField</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>HtmlEditor</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.HtmlEditor</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>TimeField</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.TimeField</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>ComboBox</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.ComboBox</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>TriggerField</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.TriggerField</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Multiselect</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.Multiselect</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>ItemSelector</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.ItemSelector</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+
+<tag>
+    <name>GridPanel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.grid.GridPanel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+ <tag>
+    <name>Column</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.grid.ColumnModel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+ <tag>
+    <name>EditorGridPanel</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.grid.EditorGridPanel</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+ <tag>
+    <name>Script</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.container.Script</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>UploadDialogButton</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.button.UploadDialogButton</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>M2MSelectButton</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.button.M2MSelectButton</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>M2MRemoveButton</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.button.M2MRemoveButton</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>PopuSelect</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.PopuSelect</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>WorkflowButton</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.button.WorkflowButton</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+
+  <tag>
+    <name>Fill</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.toolbar.Fill</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>
+  </tag>
+  
+  <tag>
+    <name>ComboBoxTree</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.ComboBoxTree</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>  
+  </tag>
+  
+  <tag>
+    <name>DateTime</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.form.DateTime</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>  
+  </tag>
+  
+
+  <tag>
+    <name>ProgressBar</name>
+    <tag-class>com.cutty.bravo.core.ui.tags.progressbar.ProgressBar</tag-class> 
+    <dynamic-attributes>true</dynamic-attributes>  
+  </tag>
+  
+</taglib>

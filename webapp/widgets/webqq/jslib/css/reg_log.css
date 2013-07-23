@@ -1,0 +1,54 @@
+/**
+ * @version JPK System 1.0 beta
+ * @author songyinghao
+ * @sorcecode utf-8
+ * @licese LGPL,All Rights Reserved.
+ * @description It is the Regin/Login System CSS Style Sheet of the JPK System
+ */
+.JpkFieldCSS{
+    margin: 0px 0px 5px 0px;
+}
+#card_panel .x-panel-body {
+    background:transparent;
+	border-width: 0px 0px 0px 0px;
+}
+#reg_panel .x-panel-body {
+    background:transparent;
+	border-width: 0px 0px 0px 0px;
+}
+#log_panel .x-panel-body {
+    background:transparent;
+	border-width: 0px 0px 0px 0px;
+}
+#regDesc_panel .x-panel-body {
+    background:transparent;
+	border-width: 0px 0px 0px 0px;
+	font-size:14px;
+}
+#reg_form .x-panel-body {
+    background:transparent;
+	border-width: 0px 2px 0px 0px;
+}
+#log_form .x-panel-body {
+    background:transparent;
+	border-width: 0px 2px 0px 0px;
+}
+#reg_panel .reg_info_label {
+	font-size:16px;
+	font-weight:400;
+}
+#log_panel .log_info_label {
+	font-size:16px;
+	font-weight:400;
+}
+#reg_form .reg_form_checklabel{
+	padding:6px 3px 3px 3px;
+	font-size:12px;
+}
+#reg_form .reg_form_checkbox{
+	padding-left:13px;
+}
+#log_form .log_form_checkbox{
+	padding-left:13px;
+	font-size:12px;
+}

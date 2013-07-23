@@ -1,0 +1,110 @@
+.menu-loading div{
+	font-size:13px;
+	padding:15px 10px 5px 10px;
+	background: #fbfbfb url( '../images/menu/loading-balls.gif' ) no-repeat 5px 5px;
+	background-position:top;
+    line-height: 16px;
+}
+
+.menu-loading-fail div{
+	font-size:13px;
+	padding:5px 5px 5px 5px;
+	background: #fbfbfb  no-repeat 5px 5px;
+    line-height: 16px;
+}
+.menu-refresh {
+    background-image: url(../images/menu/refresh.png) !important;
+} 
+/**
+ * 各分栏菜单
+ */
+.menu-class {
+    background-image: url(../images/menu/menu-class.png) !important;
+} 
+.menu-teacher {
+    background-image: url(../images/menu/menu-teacher.gif) !important;
+} 
+.menu-source {
+    background-image: url(../images/menu/menu-source.gif) !important;
+} 
+.menu-video {
+    background-image: url(../images/menu/menu-video.png) !important;
+} 
+.menu-policy {
+    background-image: url(../images/menu/menu-policy.gif) !important;
+} 
+.menu-plan {
+    background-image: url(../images/menu/menu-plan.gif) !important;
+}
+/**
+ * 课程简介菜单
+ */
+.menu-class-show {
+    background-image: url(../images/menu/classmenu/show.png) !important;
+} 
+.menu-class-index {
+    background-image: url(../images/menu/classmenu/index.png) !important;
+} 
+.menu-class-plan {
+    background-image: url(../images/menu/classmenu/plan.png) !important;
+} 
+/*
+ * 教学队伍菜单
+ */
+.menu-teacher-leader {
+    background-image: url(../images/menu/teachermenu/leader.png) !important;
+} 
+.menu-teacher-chief {
+    background-image: url(../images/menu/teachermenu/chief.png) !important;
+} 
+.menu-teacher-team {
+    background-image: url(../images/menu/teachermenu/team.png) !important;
+} 
+/*
+ * 课程资源菜单
+ */
+.menu-source-unittest {
+    background-image: url(../images/menu/sourcemenu/unittest.gif) !important;
+} 
+.menu-source-lasttest {
+    background-image: url(../images/menu/sourcemenu/lasttest.gif) !important;
+}
+.menu-source-webtest {
+    background-image: url(../images/menu/sourcemenu/webtest.gif) !important;
+}
+.menu-source-testhelp {
+    background-image: url(../images/menu/sourcemenu/testhelp.gif) !important;
+}
+/**
+ * Header
+ */
+.header-changepass {
+    background-image: url(../images/header/password.gif) !important;
+} 
+.header-login {
+    background-image: url(../images/header/login.gif) !important;
+} 
+.header-reg {
+    background-image: url(../images/header/reg.png) !important;
+} 
+.header-logout {
+    background-image: url(../images/header/logout.png) !important;
+} 
+.header-edit {
+    background-image: url(../images/header/page_edit.png) !important;
+} 
+.header-refresh {
+    background-image: url(../images/header/page_refresh.png) !important;
+} 
+.header-print {
+    background-image: url(../images/header/page_print.png) !important;
+} 
+.header-qq {
+    background-image: url(../images/header/qq.gif) !important;
+} 
+/**
+ * HomePage iconCls
+ */
+.hp-cls {
+    background-image: url(../images/home.png) !important;
+} 

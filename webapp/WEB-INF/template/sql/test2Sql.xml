@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sqlMap>
+	<resultMap id="studentResult" entityClass="com.cutty.bravo.components.demo.domain.Student">
+		<result property="headTeacher" column="head_teacher" loadEntity="true"/>
+	</resultMap>
+ 
+	<save id="insertStudent">
+		insert into bravo_student
+		(id,name,gender,headTeacher,age) values 
+		(#student.id#,'#student.name#','#student.gender#','#student.headTeacher#','#student.age#')
+	</save>
+ 
+	<save id="updateStudent">
+		update bravo_student set name = #drawId#,gender = #gender#,headTeacher = #clickCount#,age=#auditState# where id = #eventId#
+	</save>
+	
+	<delete id="deleteStudent">
+		delete from bravo_user where event_id = #eventId#
+	</delete>
+ 
+	<query id="getStudent" resultMap="studentResult">
+		select 
+			ED.event_id,
+		    ED.draw_id,
+		    ED.compete_id,
+		    date(ED.join_Date) as join_Date,
+		    ED.click_count,
+		    ED.time_num,
+		    ED.front_show,
+		    ED.audit_state,
+			D.title,
+			D.comment,
+			D.file_name,
+			SU.user_name,
+			SU.user_id,
+			CD.compete_title
+		FROM 
+			bravo_user user,
+			draw_desc D,
+			sys_user SU,
+			compete_draw CD
+		WHERE
+			ED.draw_id=D.draw_id
+		AND
+			D.user_id=SU.user_id
+		AND
+			ED.compete_id=CD.compete_id
+		AND
+			ED.event_id=#eventId#
+	</query>
+
+
+
+	<query id="getStudentCount" resultClass="com.cutty.bravo.components.demo.domain.Student">
+		SELECT
+			id AS id,
+			name AS name
+		FROM 
+			bravo_student
+	</query>
+
+</sqlMap>

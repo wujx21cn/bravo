@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sqlMap>
+
+	<query id="getAssignPooledTaskInstancesId" resultClass="java.lang.Long">
+		select taskinstance.id_ from jbpm_taskinstance taskinstance 
+			left join jbpm_taskactorpool taskactorpool on taskinstance.id_ = taskactorpool.taskinstance_ 
+			left join jbpm_pooledactor pooledactor on taskactorpool.pooledactor_ = pooledactor.id_ 
+			where taskinstance.id_ =:taskinstanceid and pooledactor.actorid_=:actorid 
+			and taskinstance.issuspended_ = 0 and taskinstance.isopen_ = 1 
+	</query>
+
+</sqlMap>

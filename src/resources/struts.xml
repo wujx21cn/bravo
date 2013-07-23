@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <bean type="com.opensymphony.xwork2.UnknownHandler" class="com.cutty.bravo.core.web.struts2.plugin.COCHandler" />
+    <bean type="org.apache.struts2.convention.ActionNameBuilder" name="defaultConvention" class="org.apache.struts2.convention.DefaultActionNameBuilder"/>  
+    <constant name="struts.multipart.maxSize" value="104857600" />
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.locale" value="zh_CN" />
+    <constant name="struts.i18n.encoding" value="UTF-8" />
+    <constant name="struts.custom.i18n.resources" value="i18n.messages" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <constant name="struts.devMode" value="false" />
+    <constant name="struts.codebehind.pathPrefix" value="/WEB-INF/modules/" /> 
+    <constant name="struts.codebehind.defaultPackage" value="bravo"/>
+    <constant name="struts.convention.action.packages" value="com.cutty" />
+    <constant name="struts.convention.exclude.parentClassLoader" value="false"/>
+    <constant name="struts.convention.actionNameBuilder" value="defaultConvention"/>
+    <constant name="struts.convention.action.includeJars" value=".*bravo-.*.jar.*"/>
+    <constant name="struts.mapper.alwaysSelectFullNamespace" value="true" />
+    
+	<package name="bravo" extends="struts-default">
+	<interceptors>
+	  	<interceptor name="baseInterceptor" class="com.cutty.bravo.core.web.struts2.interceptor.BaseInterceptor"/>
+	    <interceptor-stack name="bravoStack">
+	       <interceptor-ref name="baseInterceptor"/>
+	       <interceptor-ref name="exception"/>
+	       <interceptor-ref name="alias"/>
+	       <interceptor-ref name="servletConfig"/>
+	       <interceptor-ref name="prepare"/>
+	       <interceptor-ref name="i18n"/>
+	       <interceptor-ref name="chain"/>
+	       <interceptor-ref name="scopedModelDriven"/>
+	       <interceptor-ref name="modelDriven"/>
+	       <interceptor-ref name="fileUpload"/>
+	       <interceptor-ref name="params">
+	         <param name="excludeParams">dojo\..*</param>
+	       </interceptor-ref>
+	   </interceptor-stack>
+	  </interceptors>   
+	  <default-interceptor-ref name="bravoStack"/>
+	<global-results>    
+	 	<result name="jsonDataRenderChain" type="chain">
+            <param name="actionName">dataRender</param>
+            <param name="namespace">/ui</param>
+            <param name="method">renderJsonData</param>
+        </result>
+    	<result name= "blank" type="freemarker">
+    		<param name="location">/WEB-INF/modules/blank.ftl</param>
+    		<param name="contentType">application/x-json</param>
+    	</result>  
+         <result name="Aajx" type="stream">
+              <param name="contentType">text/html;charset=UTF-8</param>
+              <param name="inputName">resultStream</param>           
+          </result> 
+ 	</global-results> 	
+        <action name="exportFile" class="com.cutty.bravo.core.ui.dataRender.web.ExportFileComponentAction">
+            <result name="success" type="stream">
+                <param name="contentType">${contentType}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">4096</param>
+            </result>
+        </action>   
+    </package>
+    <!-- Add packages here --> 
+</struts>
