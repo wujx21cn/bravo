@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<!-- Spring Security -->
+	<import resource="classpath:com/cutty/bravo/core/security/applicationContext-spring-security.xml" />
+		<!-- Jboss jbpm -->
+	<import resource="classpath:com/cutty/bravo/components/jbpm/applicationContext-jbpm.xml" />
+	<!-- web service -->
+	<import resource="classpath:com/cutty/bravo/components/ws/applicationContext-ws.xml" />
+	<import resource="classpath:com/cutty/bravo/components/ws/client/applicationContext-ws-client.xml" />
+	<!-- communication -->
+	<import resource="classpath:com/cutty/bravo/components/communication/applicationContext-mail.xml" />
+
+</beans>

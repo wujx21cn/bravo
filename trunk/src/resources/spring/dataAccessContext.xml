@@ -1,0 +1,151 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+            default-autowire="byName" default-lazy-init="true" >
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="com.cutty"/>
+	<bean id="dataSource"
+		class="com.cutty.bravo.core.saas.SaasDataSource" />
+	<!-- 数据源定义,使用Apache DBCP 连接池 -->
+	<!--bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean-->
+
+	<!-- 数据源定义,使用p6spy,可以监视hibernate产生的SQL -->
+	<!--  <bean id="dataSource" class="com.p6spy.engine.spy.P6DataSource">   
+		<constructor-arg>   
+		<bean   
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">   
+		<property name="driverClassName"  
+		value="com.p6spy.engine.spy.P6SpyDriver" />   
+		<property name="url" value="${jdbc.url}" />   
+		<property name="username" value="${jdbc.username}" />   
+		<property name="password" value="${jdbc.password}" />   
+		</bean>   
+		</constructor-arg>   
+		</bean> -->
+
+	<!-- 数据源定义,使用proxool 连接池 -->
+	<!-- <bean id="dataSource" class="org.logicalcobwebs.proxool.ProxoolDataSource" destroy-method="close">
+	  <property name="driver">
+	   <value>${jdbc.driverClassName}</value>
+	  </property>
+	  <property name="driverUrl">
+	   <value>${jdbc.url}</value>
+	  </property>
+	  <property name="user">
+	   <value>${jdbc.username}</value>
+	  </property>
+	  <property name="password">
+	   <value>${jdbc.password}</value>
+	  </property>
+	  <property name="alias">
+	   <value>${proxool.alias}</value>
+	  </property>
+	  <property name="houseKeepingSleepTime">
+	   <value>${proxool.houseKeepingSleepTime}</value>
+	  </property>
+	  <property name="prototypeCount">
+	   <value>${proxool.prototypeCount}</value>
+	  </property>
+	  <property name="maximumConnectionCount">
+	   <value>${proxool.maximumConnectionCount}</value>
+	  </property>
+	  <property name="minimumConnectionCount">
+	   <value>${proxool.minimumConnectionCount}</value>
+	  </property>
+	  <property name="trace">
+	   <value>${proxool.trace}</value>
+	  </property>
+	  <property name="verbose">
+	   <value>${proxool.verbose}</value>
+	  </property>
+	 </bean>
+-->
+
+	<!--Hibernate SessionFatory-->
+<bean id="sessionFactory"
+	class="com.cutty.bravo.core.utils.AutoLoadSessionFactoryBean">
+	<property name="dataSource" ref="dataSource" />
+	<property name="mappingClassPathJars">
+		<list>
+			<value>.*bravo-.*.jar.*</value>
+		</list>
+	</property>
+	<property name="mappingLocations">  
+	     <list><value>classpath*:org/jbpm/**/*.hbm.xml</value></list>  
+	</property> 	
+	<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					<!-- org.hibernate.dialect.Oracle10gDialect -->
+					org.hibernate.dialect.MySQL5Dialect
+				</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.cache.provider_class">
+					org.hibernate.cache.EhCacheProvider
+			</prop>
+			<prop key="hibernate.cache.use_query_cache">true</prop>
+		</props>
+	</property>
+
+	<!--  eventListeners -->
+	<property name="eventListeners">
+		<map>
+			<entry key="delete">
+				<ref bean="deleteListener" />
+			</entry>
+			<entry key="save-update">
+				<ref bean="saveOrUpdateListener" />
+			</entry>
+		</map>
+	</property>
+		<property name="typeDefinitions">
+			<ref bean="jbpmTypes" />
+		</property>
+</bean>
+ 	<bean id="jbpmTypes"
+		class="org.springframework.orm.hibernate3.TypeDefinitionBean">
+		<property name="typeName" value="string_max" />
+		<property name="typeClass"
+			value="org.jbpm.db.hibernate.StringMax" />
+	</bean>
+	<bean id="saveOrUpdateListener"
+		class="com.cutty.bravo.core.dao.support.listener.SaveOrUpdateListener">
+	</bean>
+
+
+
+	<bean id="deleteListener"
+		class="com.cutty.bravo.core.dao.support.listener.DeleteListener">
+	</bean>
+ 
+	<!--Hibernate TransactionManager-->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="entityManager"
+		class="com.cutty.bravo.core.dao.extend.impl.BaseEntityDaoImpl" />
+		
+	<bean id="baseDao"
+		class="com.cutty.bravo.core.dao.impl.HibernateBaseDao" />	
+	<bean id="saasGroupUtils"
+		class="com.cutty.bravo.core.saas.SaasGroupUtils" />		
+		
+		
+</beans>

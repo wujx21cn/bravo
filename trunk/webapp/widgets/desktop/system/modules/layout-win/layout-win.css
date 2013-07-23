@@ -1,0 +1,7 @@
+.layout-icon {
+	background-image: url(images/layout16x16.gif) !important;
+}
+.layout-shortcut img {
+    background-image: url(images/layout48x48.png);
+    filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../widgets/desktop/system/modules/layout-win/images/layout48x48.png', sizingMethod='scale');
+}

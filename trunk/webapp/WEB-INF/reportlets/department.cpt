@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WorkBook>
+<Version>6.1</Version>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<TableDataMap>
+<NameTableData name="bravo">
+<TableData class="com.fr.data.impl.DBTableData">
+<Parameters>
+<Parameter class="com.fr.report.parameter.DefaultParameter">
+<Attributes name="code" type="0" pop="true" />
+<O t="S"></O><CellEditorDef class="com.fr.report.cellElement.TextCellEditorDef"><Attr allowBlank="false" /></CellEditorDef></Parameter>
+<Parameter class="com.fr.report.parameter.DefaultParameter">
+<Attributes name="_manager.id" type="0" pop="true" />
+<O t="S"></O><CellEditorDef class="com.fr.report.cellElement.TextCellEditorDef"><Attr allowBlank="false" /></CellEditorDef></Parameter>
+<Parameter class="com.fr.report.parameter.DefaultParameter">
+<Attributes name="parentDepartment.id" type="0" pop="true" />
+<O t="S">and bravo_department.parent_dep=1</O><CellEditorDef class="com.fr.report.cellElement.TextCellEditorDef"><Attr allowBlank="false" /></CellEditorDef></Parameter>
+<Parameter class="com.fr.report.parameter.DefaultParameter">
+<Attributes name="name" type="0" pop="true" />
+<O t="S"></O><CellEditorDef class="com.fr.report.cellElement.TextCellEditorDef"><Attr allowBlank="false" /></CellEditorDef></Parameter>
+</Parameters>
+<Attributes type="0" isCache="false" />
+<Database class="com.fr.data.impl.NameDatabase">
+<DatabaseName><![CDATA[bravo]]></DatabaseName>
+</Database>
+<Query><![CDATA[select bravo_department.*,bravo_user.user_name,bravo_department2.name as parentDeptName from bravo_department left outer join bravo_user on bravo_user.id = bravo_department.manager left outer join bravo_department bravo_department2 on bravo_department.parent_dep = bravo_department2.id where bravo_department.name like '%[?name|?]%' and bravo_department.code like '%[?code|?]%' and bravo_user.user_name like '%[?_manager.id|?]%' [?parentDepartment.id?]]]></Query>
+</TableData>
+</NameTableData>
+</TableDataMap>
+<ReportSettings orientation="1" shrinkToFit="false" headerHeight="0.33" footerHeight="0.33">
+<Margin top="0.27" left="0.7499999999999999" bottom="0.27" right="0.7499999999999999" />
+</ReportSettings>
+<ReportParameterAttr>
+<Parameters>
+</Parameters>
+<Attributes showWindow="false" delayPlaying="false" windowPosition="1" userDefineWindow="false" />
+<WorkSheet>
+<ReportSettings shrinkToFit="false" headerHeight="0.33" footerHeight="0.33">
+<Margin top="0.27" left="0.75" bottom="0.27" right="0.75" />
+</ReportSettings>
+<ReportParameterAttr>
+<Parameters>
+</Parameters>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="0" userDefineWindow="false" />
+</ReportParameterAttr>
+<AutoRecalculate>false</AutoRecalculate>
+<DesignAttributes>
+</DesignAttributes>
+<ReportWebAttr>
+<EmailManager mailHost="" password="___" user="" fromEmailAddress="" />
+<ServerPrinter>
+</ServerPrinter>
+</ReportWebAttr>
+<ReportWriteAttr>
+<ReportWriteRightResultLink>
+</ReportWriteRightResultLink>
+<ReportWriteWrongResultLink>
+</ReportWriteWrongResultLink>
+</ReportWriteAttr>
+<RowHeight defaultValue="19.0">
+<![CDATA[]]>
+</RowHeight>
+<ColumnWidth defaultValue="72.0">
+<![CDATA[]]>
+</ColumnWidth>
+<FloatElementList>
+</FloatElementList>
+<CellElementList>
+</CellElementList>
+</WorkSheet>
+</ReportParameterAttr>
+<AutoRecalculate>false</AutoRecalculate>
+<DesignAttributes>
+</DesignAttributes>
+<ReportWebAttr>
+<EmailManager mailHost="" password="___" user="" fromEmailAddress="" />
+<ServerPrinter>
+</ServerPrinter>
+</ReportWebAttr>
+<ReportWriteAttr>
+<ReportWriteRightResultLink>
+</ReportWriteRightResultLink>
+<ReportWriteWrongResultLink>
+</ReportWriteWrongResultLink>
+</ReportWriteAttr>
+<Header reportPageType="0">
+<Background name="NullBackground" />
+<LeftList>
+</LeftList>
+<CenterList>
+</CenterList>
+<RightList>
+</RightList>
+</Header>
+<RowHeight defaultValue="19.0">
+<![CDATA[]]>
+</RowHeight>
+<ColumnWidth defaultValue="72.0">
+<![CDATA[88.0,88.0,88.0,88.0,88.0,88.0,88.0,88.0]]>
+</ColumnWidth>
+<FloatElementList>
+</FloatElementList>
+<CellElementList>
+<C c="0" r="0" s="0"><O t="S">部门编码</O></C>
+<C c="1" r="0" s="0"><O t="S">名称</O></C>
+<C c="2" r="0" s="0"><O t="S">部门经理</O></C>
+<C c="3" r="0" s="0"><O t="S">地址</O></C>
+<C c="4" r="0" s="0"><O t="S">邮编</O></C>
+<C c="5" r="0" s="0"><O t="S">电话</O></C>
+<C c="6" r="0" s="0"><O t="S">传真</O></C>
+<C c="7" r="0" s="0"><O t="S">上级部门</O></C>
+<C c="0" r="1" s="1"><O t="DSColumn"><Attributes dsName="bravo" columnName="CODE" />
+</O><Expand dir="0" />
+</C>
+<C c="1" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="NAME" />
+</O><Expand dir="0" />
+</C>
+<C c="2" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="USER_NAME" />
+</O><Expand dir="0" />
+</C>
+<C c="3" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="ADDRESS" />
+</O><Expand dir="0" />
+</C>
+<C c="4" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="POSTALCODE" />
+</O><Expand dir="0" />
+</C>
+<C c="5" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="TELEPHONE" />
+</O><Expand dir="0" />
+</C>
+<C c="6" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="FAX" />
+</O><Expand dir="0" />
+</C>
+<C c="7" r="1" s="2"><O t="DSColumn"><Attributes dsName="bravo" columnName="PARENTDEPTNAME" />
+</O><Expand dir="0" />
+</C>
+<C c="8" r="1"><O t="S"></O><Expand dir="0" />
+</C>
+<C c="3" r="14"><O t="S"></O></C>
+</CellElementList>
+</Report>
+<StyleList>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="1" size="12" />
+<Background name="ColorBackground"
+ color="-16724737">
+</Background>
+<Border><Top style="1" /><Bottom style="1" /><Left style="1" /><Right style="1" /></Border>
+</Style>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="12" />
+<Background name="NullBackground" />
+<Border><Top style="1" /><Bottom style="1" /><Left style="1" /><Right style="1" /></Border>
+</Style>
+<Style horizontal_alignment="0">
+<FRFont name="SimSun" style="0" size="12" />
+<Background name="NullBackground" />
+<Border><Top color="-16777216"
+ /><Bottom style="1" color="-16777216"
+ /><Left style="1" color="-16777216"
+ /><Right style="1" color="-16777216"
+ /></Border>
+</Style>
+</StyleList>
+</WorkBook>

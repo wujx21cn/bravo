@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sqlMap>
+	<resultMap id="studentResult" entityClass="com.cutty.bravo.components.demo.domain.Student">
+		<result property="headTeacher" column="head_teacher" loadEntity="true"/>
+	</resultMap>
+ 
+	<save id="insertStudent">
+		insert into bravo_student
+		(id,name,gender,headTeacher,age) values 
+		(#student.id#,'#student.name#','#student.gender#','#student.headTeacher#','#student.age#')
+	</save>
+ 
+	<save id="updateStudent">
+		update bravo_student set name = #drawId#,gender = #gender#,headTeacher = #clickCount#,age=#auditState# where id = #eventId#
+	</save>
+	
+	<delete id="deleteStudent">
+		delete from bravo_user where event_id = #eventId#
+	</delete>
+ 
+	<query id="getStudent" resultMap="studentResult">
+	<![CDATA[
+		select t.id,t.name,t.gender,t.head_teacher,t.age from bravo_student t 
+		<#if student.name?has_content>
+		 where t.name like '%${student.name}%'
+		</#if>
+	]]>	
+	</query>
+
+
+	<query id="getStudent2" resultClass="com.cutty.bravo.components.demo.domain.Student">
+		SELECT
+			id AS id,
+			name AS name
+		FROM 
+			bravo_student
+	</query>
+
+	<query id="getUser"  resultClass="com.cutty.bravo.core.security.domain.User">
+	<![CDATA[
+		select t.id,t.loginid,t.user_name,(select count(id) from bravo_user t) as rowcount from bravo_user t
+	]]>	
+	</query>
+</sqlMap>

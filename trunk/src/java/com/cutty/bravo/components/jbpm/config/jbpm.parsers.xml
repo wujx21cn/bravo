@@ -1,0 +1,5 @@
+<parsers>
+	<parser class="org.jbpm.jpdl.par.JpdlArchiveParser"/>
+	<parser class="org.jbpm.jpdl.par.FileArchiveParser"/>
+	<parser class="com.cutty.bravo.components.jbpm.parser.JpdlPlugParserb"/>
+</parsers>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<sqlMap>
+
+	<query id="getChildMenu" resultClass="com.cutty.bravo.components.common.domain.MenuFunction">
+		select distinct menu_function.id,menu_function.parent_fun,menu_function.sequences,
+			   menu_function.name,menu_function.action,menu_function.icon_src
+		 from bravo_menu_function menu_function
+		 inner join bravo_fun_permis fun_permis on menu_function.id = fun_permis.sys_id
+		 inner join bravo_role_permis role_permis on fun_permis.per_id = role_permis.permis_id
+		 inner join bravo_user_role user_role on role_permis.role_id = user_role.role_id
+		 where menu_function.parent_fun=${menuFunction.id?c} and user_role.user_id = ${loginUser.id?c} order by menu_function.sequences
+	</query>
+
+</sqlMap>

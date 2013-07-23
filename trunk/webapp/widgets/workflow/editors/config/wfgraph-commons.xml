@@ -1,0 +1,189 @@
+<mxGraph alternateEdgeStyle="verticalEdge" dropEnabled="1">
+	<add as="isUpdateSize"><![CDATA[
+		function(cell)
+		{
+			return this.isSwimlane(cell);
+		}
+	]]></add>
+	<add as="isSwimlane"><![CDATA[
+		function (cell)
+		{
+			return mxUtils.isNode(this.model.getValue(cell), 'swimlane');
+		}
+	]]></add>
+	<add as="isAllowOverlapParent"><![CDATA[
+		function(cell)
+		{
+			return !this.isSwimlane(cell.parent);
+		}
+	]]></add>
+	<add as="getTooltipForCell"><![CDATA[
+		function(cell)
+		{
+			if( null!=cell.getAttribute('task')&&''!=cell.getAttribute('task'))
+			{
+				var taskXmlDocument = mxUtils.parseXml(cell.getAttribute('task'));
+				var taskXmlElement = taskXmlDocument.getElementsByTagName('task')[0];
+				var taskName =  taskXmlElement.getAttribute('name');
+				if( null!=taskXmlElement.getElementsByTagName('assignment')[0] )
+				{
+					var assignmentXmlElement = taskXmlElement.getElementsByTagName('assignment')[0];
+					var taskActorName = (null!=assignmentXmlElement.getAttribute('actor-name'))? '<font color=blue>'+assignmentXmlElement.getAttribute('actor-name')+'</font>':'<font color=red>未指定</font>';
+					var taskPooledActorsName = (null!=assignmentXmlElement.getAttribute('pooled-actorsName'))? '<font color=blue>'+assignmentXmlElement.getAttribute('pooled-actorsName')+'</font>':'<font color=red>未指定</font>';
+				}
+				else
+				{
+					var taskActorName = '<font color=red>请指定</font>';
+					var taskPooledActorsName = '<font color=red>请指定</font>';
+				}
+				return '<b>'+taskName+'</b>'+
+					   '<br><br>执行者:<br>'+
+					   '<img src="./images/overlays/user3.png"/>用户:'+taskActorName+'<br>'+
+					   '<img src="./images/overlays/users3.png"/>角色:'+taskPooledActorsName;
+			}
+			else
+			{
+				var href = cell.getAttribute('href');
+				href = (href != null && href.length > 0) ?
+					'<br>'+href : '';
+				var maxlen = 30;
+				var desc = cell.getAttribute('description');
+				if (desc == null || desc.length == 0)
+				{
+					desc = '';
+				}
+				else if (desc.length < maxlen)
+				{
+					desc = '<br>'+desc;
+				}
+				else
+				{
+					desc = '<br>'+desc.substring(0, maxlen)+'...';
+				}
+				return '<b>'+cell.getAttribute('label')+'</b>';
+			}
+		}
+	]]></add>
+	<add as="convertValueToString">
+		function(cell)
+		{
+			return cell.getAttribute('label');
+		}
+	</add>
+	<mxGraphModel as="model">
+		<add as="valueForCellChanged"><![CDATA[
+			function(cell, value)
+			{
+				var previous = null;
+				
+				if (isNaN(value.nodeType))
+				{
+					previous = cell.getAttribute('label');
+					cell.setAttribute('label', value);
+				}
+				else
+				{
+					previous = cell.value;
+					cell.value = value;
+				}
+				
+				return previous;
+			}
+		]]></add>
+		<root>
+			<Workflow label="MyWorkflow" description="" href="" id="0"/>
+			<Layer label="Default Layer">
+				<mxCell parent="0"/>
+			</Layer>
+		</root>
+	</mxGraphModel>
+	<mxStylesheet as="stylesheet">
+		<add as="defaultVertex">
+			<add as="shape" value="label"/>
+			<add as="perimeter">mxPerimeter.RectanglePerimeter</add>
+
+<!-- Yeon 	<add as="labelBackgroundColor" value="white"/> transparent the backgroundcolor of the label  Okid -->
+
+			<add as="fontSize" value="10"/>
+			<add as="align" value="center"/>
+			<add as="verticalAlign" value="middle"/>
+			<add as="strokeColor" value="black"/>
+		</add>
+        
+<!-- Yeon add stylesheet for "Start" and "End" Tag -->
+		<add as="colorRect" extend="defaultVertex">
+			<add as="shape" value="rectangle"/>
+			<add as="rounded" value="0"/>
+			<add as="shadow" value="0"/>
+			<add as="fontSize" value="12"/>
+			<add as="strokeColor" value="#555555"/>
+			<add as="fillColor" value="#C3D9FF"/>
+			<add as="gradientColor" value="white"/>
+		</add>
+<!-- Okid -->
+
+		<add as="defaultEdge">
+			<add as="shape" value="connector"/>
+			<add as="rounded" value="1"/>
+			<add as="edgeStyle">mxEdgeStyle.ElbowConnector</add>
+			<add as="endArrow" value="classic"/>
+			<add as="fontSize" value="12"/>
+			<add as="align" value="center"/>
+			<add as="verticalAlign" value="middle"/>
+			<add as="strokeColor" value="blue"/>
+		</add>
+		<add as="verticalEdge" extend="defaultEdge">
+			<add as="elbow" value="vertical"/>
+		</add>
+		<add as="straightEdge" extend="defaultVertex">
+			<add as="shape" value="connector"/>
+			<add as="endArrow" value="classic"/>
+			<add as="fontSize" value="12"/>
+			<add as="strokeColor" value="blue"/>
+		</add>
+		<add as="arrowEdge" extend="defaultVertex">
+			<add as="shape" value="arrow"/>
+			<add as="fillColor" value="red"/>
+		</add>
+		<add as="swimlane" extend="defaultVertex">
+			<add as="shape" value="swimlane"/>
+			<add as="fontSize" value="12"/>
+			<add as="startSize" value="23"/>
+			<add as="horizontal" value="0"/>
+			<add as="verticalAlign" value="top"/>
+			<add as="fontColor" value="white"/>
+			<add as="labelBackgroundColor" value="none"/>
+		</add>
+		<add as="group" extend="defaultVertex">
+			<add as="shape" value="rectangle"/>
+			<add as="rounded" value="1"/>
+			<add as="verticalAlign" value="top"/>
+			<add as="strokeColor" value="black"/>
+			<add as="dashed" value="1"/>
+			<add as="opacity" value="50"/>
+		</add>
+		<add as="rounded" extend="defaultVertex">
+			<add as="rounded" value="1"/>
+		</add>
+		<add as="ellipse" extend="defaultVertex">
+			<add as="shape" value="ellipse"/>
+			<add as="perimeter">mxPerimeter.EllipsePerimeter</add>
+		</add>
+		<add as="rhombus" extend="defaultVertex">
+			<add as="shape" value="rhombus"/>
+			<add as="perimeter">mxPerimeter.RhombusPerimeter</add>
+		</add>
+		<add as="actor" extend="defaultVertex">
+			<add as="shape" value="actor"/>
+		</add>
+		<add as="symbol">
+			<add as="shape" value="image"/>
+			<add as="perimeter">mxPerimeter.RectanglePerimeter</add>
+			<add as="labelBackgroundColor" value="white"/>
+			<add as="fontSize" value="10"/>
+			<add as="spacingTop" value="30"/>
+			<add as="align" value="center"/>
+			<add as="verticalAlign" value="top"/>
+		</add>
+	</mxStylesheet>
+</mxGraph>

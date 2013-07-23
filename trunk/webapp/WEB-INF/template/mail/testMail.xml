@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<mailMap>
+	<mail id="wujx" subject="测试邮件模板[${subject}]" to="wujx21cn@gmail.com;${testMailAddress}">
+		<content>
+		<![CDATA[
+			hi ${name},
+				这是我的邮件模板，请查收！
+		]]>	
+		</content>
+		<attachment path="${bravoHome}/WEB-INF/template/sql/test2Sql.xml"/>
+		<attachment path="C:\20090209.dmp"/>
+	</mail>
+</mailMap>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WorkBook>
+<Version>6.1</Version>
+<Report class="com.fr.report.WorkSheet" name="sheet1">
+<TableDataMap>
+<NameTableData name="bravo">
+<TableData class="com.fr.data.impl.DBTableData">
+<Attributes type="0" isCache="false" />
+<Database class="com.fr.data.impl.NameDatabase">
+<DatabaseName><![CDATA[bravo]]></DatabaseName>
+</Database>
+<Query><![CDATA[SELECT *
+FROM
+     BRAVO.BRAVO_NEWS BRAVO_NEWS]]></Query>
+</TableData>
+</NameTableData>
+</TableDataMap>
+<ReportSettings shrinkToFit="false" headerHeight="0.33" footerHeight="0.33">
+<Margin top="0.27" left="0.75" bottom="0.27" right="0.75" />
+</ReportSettings>
+<ReportParameterAttr>
+<Parameters>
+</Parameters>
+<Attributes showWindow="true" delayPlaying="true" windowPosition="0" userDefineWindow="false" />
+</ReportParameterAttr>
+<AutoRecalculate>false</AutoRecalculate>
+<DesignAttributes>
+</DesignAttributes>
+<ReportWebAttr>
+<EmailManager mailHost="" password="___" user="" fromEmailAddress="" />
+<ServerPrinter>
+</ServerPrinter>
+</ReportWebAttr>
+<ReportWriteAttr>
+<ReportWriteRightResultLink>
+</ReportWriteRightResultLink>
+<ReportWriteWrongResultLink>
+</ReportWriteWrongResultLink>
+</ReportWriteAttr>
+<RowHeight defaultValue="19.0">
+<![CDATA[51.0]]>
+</RowHeight>
+<ColumnWidth defaultValue="72.0">
+<![CDATA[82.0,224.0,126.0,169.0]]>
+</ColumnWidth>
+<FloatElementList>
+</FloatElementList>
+<CellElementList>
+<C c="0" r="0"><O t="DSColumn"><Attributes dsName="bravo" columnName="ID" />
+</O><Expand dir="0" />
+</C>
+<C c="1" r="0"><O t="DSColumn"><Attributes dsName="bravo" columnName="TITLE" />
+</O><Expand dir="0" />
+</C>
+<C c="2" r="0"><O t="DSColumn"><Attributes dsName="bravo" columnName="PUBLISHER" />
+</O><Expand dir="0" />
+</C>
+<C c="3" r="0"><O t="DSColumn"><Attributes dsName="bravo" columnName="CREATE_DT" />
+</O><Expand dir="0" />
+</C>
+<C c="4" r="0"><O t="DSColumn"><Attributes dsName="bravo" columnName="STATUS" />
+</O><Expand dir="0" />
+</C>
+</CellElementList>
+</Report>
+<StyleList>
+</StyleList>
+</WorkBook>

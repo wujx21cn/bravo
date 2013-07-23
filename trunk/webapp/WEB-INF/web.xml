@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:spring/*.xml</param-value>
+	</context-param>
+	
+	<!--Character Encoding filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>com.cutty.bravo.core.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+	<filter>  
+        <filter-name>compressFilter</filter-name>  
+        <filter-class>com.cutty.bravo.core.web.filter.GZipFilter</filter-class>  
+	</filter>  
+	 <filter-mapping>  
+		 <filter-name>compressFilter</filter-name>  
+	     <url-pattern>/*</url-pattern>  
+	</filter-mapping>  
+
+	<filter>
+	   <filter-name>saasCodeFilter</filter-name>
+	   <filter-class>com.cutty.bravo.core.web.filter.SaasCodeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	   <filter-name>saasCodeFilter</filter-name>
+	   <url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>saasCodeFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>saasCodeFilter</filter-name>
+		<url-pattern>/ws/*</url-pattern>
+	</filter-mapping>
+
+	<!--spring security filter-->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>    
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/spring_security_login</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/j_spring_security_logout</url-pattern>
+	</filter-mapping>		
+	
+	<!--Hibernate Open Session in View Filter-->
+	<filter>
+		<filter-name>hibernateFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>hibernateFilter</filter-name>
+		<url-pattern>/ws/*</url-pattern>
+	</filter-mapping>
+			    	
+    <filter>
+        <filter-name>jbpmContextFilter</filter-name>
+        <filter-class>com.cutty.bravo.components.jbpm.filter.JbpmContextFilter</filter-class>
+    </filter>
+
+	<filter-mapping>
+		<filter-name>jbpmContextFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>	    	
+	<!--支持Struts2  -->
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>*.action</url-pattern>
+    </filter-mapping>
+    
+	<!--使struts2 支持 jspTaglib -->
+    <servlet>
+        <servlet-name>JspSupportServlet</servlet-name>
+        <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+  	
+  	<servlet>  
+	    <servlet-name>ws</servlet-name>  
+	    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>  
+	    <load-on-startup>2</load-on-startup>  
+	</servlet>  
+	  
+	<servlet-mapping>  
+	    <servlet-name>ws</servlet-name>  
+	    <url-pattern>/ws/*</url-pattern>  
+	</servlet-mapping>
+
+    <!--支持 dwr -->
+    <servlet>
+	    <servlet-name>dwr-invoker</servlet-name>
+	   <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
+	
+	    <!-- This should NEVER be present in live -->
+	    <init-param>
+	      <param-name>debug</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	
+	    <!-- Remove this unless you want to use active reverse ajax -->
+	    <init-param>
+	      <param-name>activeReverseAjaxEnabled</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	
+	    <!-- By default DWR creates application scope objects when they are first
+	    used. This creates them when the app-server is started -->
+	    <init-param>
+	      <param-name>initApplicationScopeCreatorsAtStartup</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	
+	    <!-- This enables full streaming mode. It's probably better to leave this
+	    out if you are running across the internet -->
+	    <init-param>
+	      <param-name>maxWaitAfterWrite</param-name>
+	      <param-value>-1</param-value>
+	    </init-param>
+	
+	    <!--
+	    For more information on these parameters, see:
+	    - http://getahead.org/dwr/server/servlet
+	    - http://getahead.org/dwr/reverse-ajax/configuration
+	    -->
+	
+	    <load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+	    <servlet-name>dwr-invoker</servlet-name>
+	    <url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+<!-- 
+    <servlet>  
+        <servlet-name>springMVC</servlet-name>  
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
+        <load-on-startup>1</load-on-startup>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>springMVC</servlet-name>  
+        <url-pattern>*.form</url-pattern>  
+    </servlet-mapping> 
+     -->
+	<listener>
+	    <listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextAttributeListener</listener-class>
+	</listener>
+	<listener>
+	    <listener-class>org.directwebremoting.servlet.EfficientShutdownServletContextListener</listener-class>
+	</listener>
+
+	<listener>                                                        
+	     <listener-class>com.cutty.bravo.core.web.listener.ApplicationStartListener</listener-class>
+	</listener>	      		
+		
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+</web-app>

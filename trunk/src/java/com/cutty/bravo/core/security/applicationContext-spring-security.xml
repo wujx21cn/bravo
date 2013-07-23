@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:security="http://www.springframework.org/schema/security"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+           	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd"   
+    default-autowire="byName" default-lazy-init="true">   	
+    
+    <!-- 
+    	保护应用程序中的所有URL
+    	auto-config        自动使用默认的配置   
+    	access-denied-page 指定访问未授权页面时显示的页面 
+   	--> 
+    <security:http auto-config="false" access-denied-page="/common/accessDenied.jsp">
+        <security:anonymous granted-authority="BASIC" />
+        <security:form-login login-page="/common/login.jsp" authentication-failure-url="/common/login.jsp"/>
+    </security:http> 
+
+	<!--   
+    	负责认证处理的filter  
+	--> 
+	<bean id="authenticationProcessingFilter" class="com.cutty.bravo.core.security.filter.AuthenticationFilter">    
+	    <!-- 此行说明此filter会覆盖ss2默认配置的filter，before 被覆盖filter的别名 -->
+	    <security:custom-filter before="AUTHENTICATION_PROCESSING_FILTER" />
+	    <!-- 认证管理器  -->   
+	    <property name="authenticationManager" ref="authenticationManager" />
+	    <!-- 认证失败后跳转到的页面  -->   
+	    <property name="authenticationFailureUrl" value="/common/login.jsp" />
+	    <!-- 认证成功后跳转到的页面  -->
+	    <property name="defaultTargetUrl" value="/common/desktop!loginRedirect.action" />   
+	</bean>  	
+	
+	<bean id="logoutFilter"  
+	    class="org.springframework.security.ui.logout.LogoutFilter">  
+	    <security:custom-filter position="LOGOUT_FILTER" />  
+	    <constructor-arg value="/common/login.jsp" />  
+	    <constructor-arg>  
+	        <list>  
+	           	<ref local="logoutLogManager" />   
+	            <bean class="org.springframework.security.ui.logout.SecurityContextLogoutHandler" /> 
+	        </list>  
+	    </constructor-arg>  
+	    <property name="filterProcessesUrl"  
+	        value="/j_spring_security_logout" />  
+	</bean>  
+	
+	<!--   
+    	认证管理器   
+    	根据用户名和密码，使用多个provider进行认证，这里采用数据库提供的用户数据信息   
+    	认证成功会生成一个Authentication，否则抛出AuthenticationException   
+	-->
+	<bean id="authenticationManager" class="org.springframework.security.providers.ProviderManager">   
+	    <property name="providers">   
+	        <list>   
+	            <ref local="daoAuthenticationProvider" />   
+	        </list>   
+	    </property>   
+	</bean> 
+	
+	<bean id="passwordEncoder" class="org.springframework.security.providers.encoding.Md5PasswordEncoder"></bean>
+	
+	<!-- 
+		声明一个DAO认证提供者
+	-->
+	<bean id="daoAuthenticationProvider" class="org.springframework.security.providers.dao.DaoAuthenticationProvider">
+		<!-- userDetailsService从缓存中得到认证信息 -->
+		<property name="userDetailsService" ref="userDetailsService"/>
+		<property name="passwordEncoder" ref="passwordEncoder" />
+	</bean>
+
+	
+	<!--   
+    	负责授权的filter，检查Authentication所授予的权限是否可以访问被访问的资源  
+	-->   
+	<bean id="filterSecurityInterceptor" class="org.springframework.security.intercept.web.FilterSecurityInterceptor">   
+	    <security:custom-filter before="FILTER_SECURITY_INTERCEPTOR" />
+	    <!-- 认证管理器 -->
+	    <property name="authenticationManager" ref="authenticationManager" />
+	    <!-- 授权管理器 -->   
+	    <property name="accessDecisionManager" ref="accessDecisionManager" />
+	    <!-- 属性objectDefinitionSource告诉安全拦截器被拦截的各种请求所需要的授权是什么  -->
+	    <property name="objectDefinitionSource" ref="databaseFilterInvocationDefinitionSource" />   
+	</bean> 
+		
+	<!--   
+    	授权管理器(访问决策管理器)
+    	通过多个voter投票判定是否授权，有多种决策机制实现（一票通过，半数通过，一票否决等），
+    	这里使用的AffirmativeBased是一票通过制，即有一个voter投赞成票就授权。
+    	voter会取出当前登录用户的UserDetails的所有authority，与所访问url所对应的authority进行匹配，有相同就通过。   
+	-->  	 	
+	<bean id="accessDecisionManager" class="org.springframework.security.vote.AffirmativeBased">
+		<!-- 一个访问决策投票者的工作是同时考虑用户已拥有的授权和受保护资源的配置属性中要求的授权 -->
+		<property name="decisionVoters">
+			<list>
+	            <bean class="org.springframework.security.vote.RoleVoter"> 
+	            	<!-- 这里将默认的资源授权前缀"ROLE_"改为空串，也即没有前缀 -->  
+	                <property name="rolePrefix" value="" />   
+	            </bean>   
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 获取访问资源所需要的权限(authority)，以ConfigAttributeDefinition形式返回 -->	
+	<bean id="databaseFilterInvocationDefinitionSource" class="com.cutty.bravo.core.security.intercept.web.DataBaseFilterInvocationDefinitionSource">
+        <!-- 从授权资源缓存器里获取授权信息 -->
+        <property name="resourceCacheManager" ref="resourceCacheManager"/>
+        <!-- 待授权的访问资源url, ant path风格的匹配器 -->
+	    <property name="urlMatcher">
+			<bean class="org.springframework.security.util.AntUrlPathMatcher"/>
+		</property>			 
+	</bean>
+	
+	<!-- 
+		授权资源缓存器,一次缓存后期便利 
+	--> 
+	<bean id="resourceCacheManager"
+	        class="com.cutty.bravo.core.security.manager.cache.ResourceCacheManager"  init-method="initCache"/>
+	        
+	<!-- 
+		授权实体操作缓存器,一次缓存后期便利 
+	--> 
+	<bean id="entityOperationCacheManager"
+	        class="com.cutty.bravo.core.security.manager.cache.EntityOperationCacheManager" init-method="initCache"/>
+	        
+	<!-- 
+		授权按钮缓存器,一次缓存后期便利 
+	--> 
+	<bean id="buttonResourceCacheManager"
+	        class="com.cutty.bravo.core.security.manager.cache.ButtonResourceCacheManager" init-method="initCache"/>
+	           
+    <aop:config>
+        <aop:pointcut id="securityPointcut" expression="execution(* com.cutty.bravo.core.security.web..*Action.*(..))"/>
+        <aop:advisor advice-ref="accessDeniedInterceptor" pointcut-ref="securityPointcut" order="0" />
+        <aop:advisor advice-ref="methodSecurityInterceptor" pointcut-ref="securityPointcut" order="1" />
+    </aop:config>
+    
+    <bean id="methodSecurityInterceptor"
+        class="org.springframework.security.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager" ref="authenticationManager" />
+	    <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="objectDefinitionSource" ref="databaseMethodDefinitionSource" />
+    </bean>
+    
+    <bean id="databaseMethodDefinitionSource" class="com.cutty.bravo.core.security.intercept.method.DataBaseMethodDefinitionSource"/>
+    
+    <bean id="methodMatcher" class="com.cutty.bravo.core.security.intercept.method.SimpleAspectJMethodMatcher" />
+
+    <bean id="accessDeniedInterceptor" class="com.cutty.bravo.core.security.intercept.method.AccessDeniedInterceptor" />
+    
+    <bean id="userDetailsService" class="com.cutty.bravo.core.security.manager.cache.UserDetailsCacheManager"  init-method="initCache"/>
+    
+    <bean id="logoutLogManager" class="com.cutty.bravo.core.security.manager.LogoutLogManager" />
+    
+    
+</beans>
