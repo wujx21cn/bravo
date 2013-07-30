@@ -21,7 +21,9 @@ import java.util.Date;
 
 import javax.servlet.ServletContext;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cutty.bravo.core.NetworkInfo;
@@ -35,7 +37,7 @@ import com.cutty.bravo.core.NetworkInfo;
  * @author <a href="mailto:wujx21cn@gmail.com">Jason Wu</a>
  */
 
-public class ApplicationContextKeeper {
+public class ApplicationContextKeeper implements ApplicationContextAware {
 	private static ApplicationContext appCtx = null;
 
 	/**
@@ -44,32 +46,6 @@ public class ApplicationContextKeeper {
 	 */
 	public static ApplicationContext getAppCtx() {
 		return appCtx;
-	}
-	
-	/**
-	 * 初始化appCtx
-	 * @param ctxVal
-	 */
-	public static void init(ApplicationContext ctxVal) {
-		boolean xls32d = false;
-		try {
-			InputStreamReader ir =new InputStreamReader(ApplicationContextKeeper.class.getResourceAsStream("/ca"));
-			BufferedReader br = new BufferedReader(ir);
-			String kxck22 = null;
-			while ((kxck22 = br.readLine()) != null) {
-				nckdsduxjsacd i9we = new nckdsduxjsacd();
-				String code =i9we.decrypt(kxck22, "IFUCKYOU,shitibm");
-				String cxdosw = code.substring(0, code.indexOf("["));
-				String k02sd = code.substring(code.indexOf("[")+1,code.length()-1);
-				if (!cxdosw.equals(NetworkInfo.getMacAddress()) )continue;
-				if (!(new Date()).after(DateUtil.parseToDate(k02sd, DateUtil.yyyyMMdd)))xls32d=true;
-			}
-
-		} catch (Exception e) {
-			return;
-		}
-		if (!xls32d)return;
-		appCtx = ctxVal;
 	}
 	
 	public static ServletContext getServletContext(){
@@ -123,6 +99,30 @@ public class ApplicationContextKeeper {
 			return b2;
 		}
 		
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext)
+			throws BeansException {
+		boolean xls32d = false;
+		try {
+			InputStreamReader ir =new InputStreamReader(ApplicationContextKeeper.class.getResourceAsStream("/ca"));
+			BufferedReader br = new BufferedReader(ir);
+			String kxck22 = null;
+			while ((kxck22 = br.readLine()) != null) {
+				nckdsduxjsacd i9we = new nckdsduxjsacd();
+				String code =i9we.decrypt(kxck22, "IFUCKYOU,shitibm");
+				String cxdosw = code.substring(0, code.indexOf("["));
+				String k02sd = code.substring(code.indexOf("[")+1,code.length()-1);
+				if (!cxdosw.equals(NetworkInfo.getMacAddress()) )continue;
+				if (!(new Date()).after(DateUtil.parseToDate(k02sd, DateUtil.yyyyMMdd)))xls32d=true;
+			}
+
+		} catch (Exception e) {
+			return;
+		}
+		if (!xls32d)return;
+		appCtx = applicationContext;
 	}
 
 }

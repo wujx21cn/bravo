@@ -49,5 +49,31 @@
 		</tx:attributes>
 	</tx:advice>
 
- 
+ 	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+	    <property name="maxActive" value="${redis.pool.maxActive}" />  
+	    <property name="maxIdle" value="${redis.pool.maxIdle}" />  
+	    <property name="maxWait" value="${redis.pool.maxWait}" />  
+	    <property name="testOnBorrow" value="${redis.pool.testOnBorrow}" />  
+	</bean>  
+	<bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">  
+	    <constructor-arg index="0" ref="jedisPoolConfig" />  
+	    <constructor-arg index="1">  
+	        <list>  
+	            <bean class="redis.clients.jedis.JedisShardInfo">  
+	                <constructor-arg index="0" value="${redis1.ip}" />  
+	                <constructor-arg index="1" value="${redis.port}" type="int" />  
+	            </bean> 
+	            <!-- 
+	            <bean class="redis.clients.jedis.JedisShardInfo">  
+	                <constructor-arg index="0" value="${redis2.ip}" />  
+	                <constructor-arg index="1" value="${redis.port}" type="int" />  
+	            </bean>   --> 
+	        </list>  
+	    </constructor-arg>  
+	</bean>  
+	<!-- bean id="cacheManager" class="com.cutty.bravo.core.utils.cache.redis.CacheManagerImpl"  depends-on="applicationContextKeeper" >
+	    <property name="shardedJedisPool" ref="shardedJedisPool" />
+	</bean-->
+	<bean id="cacheManager" class="com.cutty.bravo.core.utils.cache.ehcache.CacheManagerImpl"/>
+	<bean id="applicationContextKeeper" class="com.cutty.bravo.core.utils.ApplicationContextKeeper"></bean>
 </beans>

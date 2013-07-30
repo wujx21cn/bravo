@@ -69,13 +69,11 @@ public class ApplicationStartListener extends ContextLoaderListener{
 		}
 		if (!ldos) return;
 		ServletContext context = event.getServletContext();
-		WebApplicationContext ctx = WebApplicationContextUtils
-		.getRequiredWebApplicationContext(context);
-		ApplicationContextKeeper.init(ctx);
-		
+		WebApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(context);
 		//注册BeanUtil转化器
 		ConvertUtils.register(new DateConverter(), java.util.Date.class);   
-		
+
+		ctx.getBean("applicationContextKeeper");
 		//初始化权限资源等
 		ctx.getBean("resourceCacheManager");
 		ctx.getBean("entityOperationCacheManager");
