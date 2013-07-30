@@ -41,7 +41,7 @@ import com.cutty.bravo.core.exception.CacheException;
 import com.cutty.bravo.core.utils.ApplicationContextKeeper;
 import com.cutty.bravo.core.utils.AutoLoadSessionFactoryBean;
 import com.cutty.bravo.core.utils.cache.Cache;
-import com.cutty.bravo.core.utils.cache.CacheFactory;
+import com.cutty.bravo.core.utils.cache.CacheManager;
 import com.cutty.bravo.core.utils.cache.ehcache.CacheImpl;
 
 /**
@@ -82,10 +82,12 @@ public class SqlResultMapTransformer  implements ResultTransformer {
 		this.resultMap = resultMap;
 		if (Boolean.valueOf(ConfigurableConstants.getProperty("sql.use.cache","true"))){
 			try {
-				cache= CacheFactory.getCacheManager().getCache(cacheName);
+
+				CacheManager cacheManager= (CacheManager)ApplicationContextKeeper.getAppCtx().getBean("cacheManager");
+				cache=  cacheManager.getCache(cacheName);
 				if (null == cache || null == cache.getCache()) {
-					cache = new CacheImpl(cacheName, 10000, true, true, 7200, 3600);   
-					CacheFactory.getCacheManager().addCache(cache);
+					cache =cacheManager.createCache(cacheName, 10000, true, true, 7200, 3600);   
+					cacheManager.addCache(cache);
 					logger.warn("can't find the cache with the name:"+cacheName);
 				}
 				//先查缓存，缓存找到则直接返回

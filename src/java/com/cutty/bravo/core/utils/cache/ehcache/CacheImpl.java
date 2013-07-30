@@ -56,12 +56,6 @@ public class CacheImpl implements Cache{
 		
 	}
 
-	public Object get(Serializable key) throws CacheException {
-		Element element = cache.get(key);
-		if (null == element) return null;
-		return element.getObjectValue();
-	}
-
 	public Object get(Object key) throws CacheException {
 		Element element = cache.get(key);
 		if (null == element) return null;
@@ -80,20 +74,6 @@ public class CacheImpl implements Cache{
 		return(cache.getSize());
 	}
 
-	public void put(Serializable key, Serializable value) throws CacheException {
-		Element element = new Element(key, value);
-		cache.put(element);
-		
-	}
-	
-	public void put(Serializable key, Serializable value, long version)
-			throws CacheException {
-		Element element = new Element(key, value);
-		//暂时不实现version
-		cache.put(element);
-		
-	}
-
 	public void put(Object key, Object value) throws CacheException {
 		Element element = new Element(key, value);
 		cache.put(element);
@@ -105,10 +85,6 @@ public class CacheImpl implements Cache{
 		Element element = new Element(key, value);
 		cache.put(element);
 		
-	}
-	
-	public boolean remove(Serializable key) throws CacheException {
-		return cache.remove(key);
 	}
 
 	public boolean remove(Object key) throws CacheException {

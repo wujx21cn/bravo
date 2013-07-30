@@ -27,8 +27,9 @@ import com.cutty.bravo.core.ConfigurableConstants;
 import com.cutty.bravo.core.exception.CacheException;
 import com.cutty.bravo.core.ui.tags.BaseTag;
 import com.cutty.bravo.core.ui.tags.container.component.PageBean;
+import com.cutty.bravo.core.utils.ApplicationContextKeeper;
 import com.cutty.bravo.core.utils.cache.Cache;
-import com.cutty.bravo.core.utils.cache.CacheFactory;
+import com.cutty.bravo.core.utils.cache.CacheManager;
 import com.cutty.bravo.core.utils.cache.ehcache.CacheImpl;
 import com.cutty.bravo.core.utils.render.FreemarkerTemplateEngine;
 import com.opensymphony.xwork2.DefaultActionInvocation;
@@ -77,10 +78,11 @@ public class Page extends BaseTag{
 				throw new JspException("you have definded the cache attribute to be 'true',you have to define the name attribute for this page!!!/n您已经定义了该页面使用缓寸,你必须定义该页面的name属性!!!");
 			}
 			try {
-				cache= CacheFactory.getCacheManager().getCache(cacheName);
+				CacheManager cacheManager= (CacheManager)ApplicationContextKeeper.getAppCtx().getBean("cacheManager");
+				cache=cacheManager.getCache(cacheName);
 				if (null == cache) {
-					cache = new CacheImpl(cacheName, 10000, true, true, 7200, 3600);   
-					CacheFactory.getCacheManager().addCache(cache);
+					 cache = cacheManager.createCache(cacheName, 10000, true, true, 7200, 3600);;   
+					 cacheManager.addCache(cache);
 					logger.warn("can't find the cache with the name:"+cacheName);
 				}
 				//如果cache为空,则按正常流程跑
@@ -102,14 +104,15 @@ public class Page extends BaseTag{
 	@Override
 	public int doEndTag() throws JspException {
 		boolean useCache =Boolean.parseBoolean( ConfigurableConstants.getProperty("ui.page.cache", "true"));
+		CacheManager cacheManager= (CacheManager)ApplicationContextKeeper.getAppCtx().getBean("cacheManager");
 		PageBean component = (PageBean)this.getComponent();
 		String outPutSB = null; 
 		if (useCache && !"false".equalsIgnoreCase(component.getCache())){
 			try {
-				cache= CacheFactory.getCacheManager().getCache(cacheName);
+				cache=  cacheManager.getCache(cacheName);
 				if (null == cache) {
-					cache = new CacheImpl(cacheName, 10000, true, true, 7200, 3600);   
-					CacheFactory.getCacheManager().addCache(cache);
+					cache = cacheManager.createCache(cacheName, 10000, true, true, 7200, 3600);
+					cacheManager.addCache(cache);
 					logger.warn("can't find the cache with the name:"+cacheName);
 				}
 				outPutSB = (String)cache.get(getPageId());
@@ -126,7 +129,7 @@ public class Page extends BaseTag{
 			if (null != scriptSB) outPutSB = outPutSB+ scriptSB.toString();
 			if (useCache && !"false".equalsIgnoreCase(component.getCache())) {
 				try {
-					cache= CacheFactory.getCacheManager().getCache(cacheName);
+					cache=  cacheManager.getCache(cacheName);
 					cache.put(getPageId(), outPutSB);
 				} catch (CacheException e) {
 					logger.error(e);

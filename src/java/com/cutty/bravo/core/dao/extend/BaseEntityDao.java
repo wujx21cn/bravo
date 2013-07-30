@@ -33,7 +33,7 @@ import com.cutty.bravo.core.dao.support.QueryParameterWrapper;
  *
  * @author <a href="mailto:wujx21cn@gmail.com">Jason Wu</a>
  */
-public interface BaseEntityDao<T> {
+public interface BaseEntityDao<T> extends Serializable {
 
 	/**
 	 * 根据ID获取对象. 实际调用Hibernate的session.load()方法返回实体或其proxy对象. 如果对象不存在，抛出异常.

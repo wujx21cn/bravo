@@ -14,6 +14,7 @@ Copyright (C) 2008 Bravo Corporation. All Rights Reserved.
 */
 package com.cutty.bravo.core.security.manager.cache;
 
+import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -252,7 +253,11 @@ public class ResourceCacheManager  extends BaseCacheManager<Resource>{
 	 *
 	 * @author <a href="mailto:wujx21cn@gmail.com">Jason Wu</a>
 	 */
-	private final class ResourceDetail{
+	private final class ResourceDetail implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 680728855502868995L;
 		private String name;           //资源对象的名称
 		private String resString;      //资源对象的url串
 		private String resType;        //资源对象的类型

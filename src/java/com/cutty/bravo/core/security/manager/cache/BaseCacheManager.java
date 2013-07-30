@@ -32,7 +32,7 @@ import com.cutty.bravo.core.exception.BizException;
 import com.cutty.bravo.core.exception.CacheException;
 import com.cutty.bravo.core.saas.SaasGroupUtils;
 import com.cutty.bravo.core.utils.cache.Cache;
-import com.cutty.bravo.core.utils.cache.CacheFactory;
+import com.cutty.bravo.core.utils.cache.CacheManager;
 import com.cutty.bravo.core.web.handler.SaasCodeHandler;
 
 /**
@@ -47,6 +47,8 @@ public abstract class BaseCacheManager <T> extends BaseEntityDaoImpl <T>  {
 	protected Map<String,Cache> cacheGroup = new HashMap<String,Cache>();
 	protected boolean useSaas = Boolean.parseBoolean(ConfigurableConstants.getProperty("saas.group.database","false"));
 	private SaasGroupUtils saasGroupUtils;
+	private CacheManager cacheManager;
+	
 	public void initCache() throws BizException{
 		Map<String, SaasGroup> saasGroups = saasGroupUtils.getSaasGroups();
 		try {
@@ -54,7 +56,7 @@ public abstract class BaseCacheManager <T> extends BaseEntityDaoImpl <T>  {
 				for (String saasKey:saasGroups.keySet()) {
 					SaasGroup saasGroup = saasGroups.get(saasKey);
 					String saasCacheName = getCacheName() +"---" + saasGroup.getCode();
-					Cache cache = CacheFactory.getCacheManager().createCache(saasCacheName, Cache.DEFAULT_MAX_ELEMENTS_IN_MEMORY,Cache.DEFAULT_OVERFLOW_TO_DISK,
+					Cache cache =  cacheManager.createCache(saasCacheName, Cache.DEFAULT_MAX_ELEMENTS_IN_MEMORY,Cache.DEFAULT_OVERFLOW_TO_DISK,
 							Cache.DEFAULT_ETERNAL,Cache.DEFAULT_TIME_TO_LIVE_SECONDS,Cache.DEFAULT_TIME_TO_IDLE_SECONDS);
 					cacheGroup.put(saasCacheName, cache);
 				}
@@ -64,7 +66,7 @@ public abstract class BaseCacheManager <T> extends BaseEntityDaoImpl <T>  {
 				}
 			} else {
 				//如果是单数据库模式，则直接用单cache
-				Cache cache= CacheFactory.getCacheManager().getCache(getCacheName());
+				Cache cache=  cacheManager.getCache(getCacheName());
 				cacheGroup.put(getCacheName(), cache);
 				initCacheData(null);
 			}
@@ -158,6 +160,10 @@ public abstract class BaseCacheManager <T> extends BaseEntityDaoImpl <T>  {
 
 	public void setSaasGroupUtils(SaasGroupUtils saasGroupUtils) {
 		this.saasGroupUtils = saasGroupUtils;
+	}
+
+	public void setCacheManager(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
 	}
 	
 	

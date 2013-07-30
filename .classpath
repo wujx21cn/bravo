@@ -9,6 +9,7 @@
       <attribute value="jar:file:/C:/Users/jwu/.m2/repository/cglib/cglib-nodep/2.2/cglib-nodep-2.2-javadoc.jar!/" name="javadoc_location"/>
     </attributes>
   </classpathentry>
+  <classpathentry kind="var" path="M2_REPO/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/google/guava/guava/r06/guava-r06.jar" sourcepath="M2_REPO/com/google/guava/guava/r06/guava-r06-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/jcraft/jsch/0.1.48/jsch-0.1.48.jar" sourcepath="M2_REPO/com/jcraft/jsch/0.1.48/jsch-0.1.48-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.1/jaxb-impl-2.2.1.jar" sourcepath="M2_REPO/com/sun/xml/bind/jaxb-impl/2.2.1/jaxb-impl-2.2.1-sources.jar"/>
@@ -151,6 +152,6 @@
   <classpathentry kind="var" path="M2_REPO/org/springmodules/spring-modules-jbpm31/0.8a/spring-modules-jbpm31-0.8a.jar" sourcepath="M2_REPO/org/springmodules/spring-modules-jbpm31/0.8a/spring-modules-jbpm31-0.8a-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/bsh/bsh/2.0b1/bsh-2.0b1.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/tuckey/urlrewritefilter/3.1.0/urlrewritefilter-3.1.0.jar"/>
-  <classpathentry kind="var" path="M2_REPO/redis/clients/jedis/2.1.0/jedis-2.1.0.jar"/>
+  <classpathentry kind="var" path="M2_REPO/redis/clients/jedis/2.1.0/jedis-2.1.0.jar" sourcepath="M2_REPO/redis/clients/jedis/2.1.0/jedis-2.1.0-sources.jar"/>
   <classpathentry kind="var" path="M2_REPO/taglibs/standard/1.1.2/standard-1.1.2.jar" sourcepath="M2_REPO/taglibs/standard/1.1.2/standard-1.1.2-sources.jar"/>
 </classpath>
