@@ -12,7 +12,7 @@
 Copyright (C) 2008 Bravo Corporation. All Rights Reserved.
 
 */
-package com.cutty.bravo.components.ws.student.impl;
+package com.cutty.bravo.components.integrate.ws.student.impl;
 
 import java.util.List;
 
