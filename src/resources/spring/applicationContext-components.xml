@@ -5,10 +5,9 @@
 	<import resource="classpath:com/cutty/bravo/core/security/applicationContext-spring-security.xml" />
 		<!-- Jboss jbpm -->
 	<import resource="classpath:com/cutty/bravo/components/jbpm/applicationContext-jbpm.xml" />
-	<!-- web service -->
-	<import resource="classpath:com/cutty/bravo/components/ws/applicationContext-ws.xml" />
-	<import resource="classpath:com/cutty/bravo/components/ws/client/applicationContext-ws-client.xml" />
 	<!-- communication -->
 	<import resource="classpath:com/cutty/bravo/components/communication/applicationContext-mail.xml" />
-
+	<!-- integrate middware -->
+	<import resource="classpath:com/cutty/bravo/components/integrate/applicationContext-integrate.xml" />
+	<import resource="classpath:com/cutty/bravo/components/integrate/ws/client/applicationContext-ws-client.xml" />
 </beans>
