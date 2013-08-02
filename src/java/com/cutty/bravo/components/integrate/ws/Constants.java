@@ -12,7 +12,7 @@
 Copyright (C) 2008 Bravo Corporation. All Rights Reserved.
 
 */
-package com.cutty.bravo.components.ws;
+package com.cutty.bravo.components.integrate.ws;
 
 /**
  *
