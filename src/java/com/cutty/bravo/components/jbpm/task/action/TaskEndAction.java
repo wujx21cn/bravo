@@ -9,7 +9,7 @@
 		2008-10-3 下午02:50:12, Created by Jason.Wu
 }}IS_NOTE
 
-Copyright (C) 2008 Travelsky Corporation. All Rights Reserved.
+Copyright (C) 2008 BullShit Corporation. All Rights Reserved.
 
 */
 package com.cutty.bravo.components.jbpm.task.action;
