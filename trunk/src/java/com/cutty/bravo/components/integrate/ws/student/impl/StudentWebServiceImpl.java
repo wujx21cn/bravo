@@ -21,7 +21,7 @@ import javax.servlet.ServletContext;
 
 import com.cutty.bravo.components.demo.domain.Student;
 import com.cutty.bravo.components.demo.manager.StudentManager;
-import com.cutty.bravo.components.ws.student.StudentWebService;
+import com.cutty.bravo.components.integrate.ws.student.StudentWebService;
 import com.cutty.bravo.core.utils.ApplicationContextKeeper;
 
 
@@ -35,7 +35,7 @@ import com.cutty.bravo.core.utils.ApplicationContextKeeper;
  * @author <a href="mailto:wujx21cn@gmail.com">Jason Wu</a>
  */
 
-@WebService(endpointInterface="com.cutty.bravo.components.ws.student.StudentWebService") 
+@WebService(endpointInterface="com.cutty.bravo.components.integrate.ws.student.StudentWebService") 
 public class StudentWebServiceImpl implements StudentWebService {
 	private StudentManager studentManager;
 	

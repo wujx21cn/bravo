@@ -9,7 +9,7 @@
 		Jun 15, 2013 10:53:31 PM, Created by Jason.Wu
 }}IS_NOTE
 
-Copyright (C) 2008 Travelsky Corporation. All Rights Reserved.
+Copyright (C) 2008 BullShit Corporation. All Rights Reserved.
 
 */
 package com.cutty.bravo.components.concurrent.pool;

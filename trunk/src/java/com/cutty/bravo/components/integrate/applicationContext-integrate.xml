@@ -1,16 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:cxf="http://cxf.apache.org/core"
-	xsi:schemaLocation="http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
-	   default-autowire="byName" default-lazy-init="true">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+	xsi:schemaLocation="http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd http://www.springframework.org/schema/beans  http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/rabbit http://www.springframework.org/schema/rabbit/spring-rabbit-1.1.xsd"
+	default-autowire="byName" default-lazy-init="true">
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
 
-    <bean id="studentWS" class="com.cutty.bravo.components.integrate.ws.student.impl.StudentWebServiceImpl" />    
+	<bean id="studentWS"
+		class="com.cutty.bravo.components.integrate.ws.student.impl.StudentWebServiceImpl" />
 
-    <jaxws:endpoint id="studentWebService" address="/studentWebService">   
-        <jaxws:implementor ref="studentWS" />   
-    </jaxws:endpoint>
+	<jaxws:endpoint id="studentWebService" address="/studentWebService">
+		<jaxws:implementor ref="studentWS" />
+	</jaxws:endpoint>
+
+    <bean id="connectionFactory"  
+        class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory">  
+        <property name="host" value="${mq.rabbitmq.host}" />
+        <property name="username" value="${mq.rabbitmq.username}" />  
+        <property name="password" value="${mq.rabbitmq.password}" />  
+    </bean>  
     
+	 <bean id="amqpAdmin" class="org.springframework.amqp.rabbit.core.RabbitAdmin"  lazy-init="false">  
+        <constructor-arg ref="connectionFactory" />  
+    </bean>  
+    
+	<rabbit:template id="topicMQTemplate" connection-factory="connectionFactory"  exchange="TOPIC-EXCHANGE"/>
+	<rabbit:template id="directMQTemplate" connection-factory="connectionFactory"  exchange="DIRECT-EXCHANGE"/>
+
+    <bean id="topicQueueOne" class="org.springframework.amqp.core.Queue">  
+        <constructor-arg value="topicQueueOne"></constructor-arg>  
+    </bean>  
+    
+    <bean id="topicQueueTwo" class="org.springframework.amqp.core.Queue">  
+        <constructor-arg value="topicQueueTwo"></constructor-arg>  
+    </bean>  
+    
+    <rabbit:queue id="queue_one" durable="true" auto-delete="false" exclusive="false" name="queue_one"/>
+    <rabbit:queue id="queue_two" durable="true" auto-delete="false" exclusive="false" name="queue_two"/>
+    
+    <rabbit:direct-exchange id="directExchange" name="DIRECT-EXCHANGE" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="queue_one" key="queue_one_key"/>
+            <rabbit:binding queue="queue_two" key="queue_two_key"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+    
+    <rabbit:topic-exchange id="TopicExchange" name="TOPIC-EXCHANGE">
+        <rabbit:bindings>
+            <rabbit:binding queue="topicQueueOne" pattern="my.*.#"></rabbit:binding>
+            <rabbit:binding queue="topicQueueTwo" pattern="my.*.*.#"></rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+    
+    <!-- instantiate TutorialListener -->
+    <bean id="aListener" class="com.cutty.bravo.components.integrate.mq.rabbitmq.listener.TutorialListener" />
+    
+    <!-- glue the listener and myAnonymousQueue to the container-->
+    <rabbit:listener-container id="myListenerContainer" connection-factory="connectionFactory">
+        <rabbit:listener ref="aListener" queues="topicQueueOne,topicQueueTwo,queue_one,queue_two" />
+   </rabbit:listener-container>
+   
 </beans>

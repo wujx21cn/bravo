@@ -9,7 +9,7 @@
 		2012-5-21 下午02:49:45, Created by Jason.Wu
 }}IS_NOTE
 
-Copyright (C) 2008 Travelsky Corporation. All Rights Reserved.
+Copyright (C) 2008 BullShit Corporation. All Rights Reserved.
 
 */
 package com.cutty.bravo.core.ui.tags.progressbar;
